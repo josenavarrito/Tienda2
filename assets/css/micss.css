@@ -1,0 +1,95 @@
+        .bloque{height: 798px;background-color: #FF9933;margin-top: 30px;}
+        .navbar{min-height: 0px; margin-bottom:-20px; background-color: chocolate; border:chocolate;}
+        .footer{background-color: chocolate;}
+        .navbar-header a{margin-top: -10px;}
+        body{background-color: #FF9933;}
+        #barba{margin-top: -50px;}
+        #destacados{
+            overflow-y: scroll;
+            width: 600px;
+            height: 450px;
+        }
+        .navbar-default .navbar-nav>li>a{color:black;}
+        .menu{background-color: chocolate;}
+        .navbar-default .navbar-nav>.open>a, .navbar-default 
+        .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover
+        {background-color:chocolate; color: black;}
+        .dropdown-menu{background-color: chocolate;}
+        .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background-color: #bd5e1b;}
+        .dropdown-menu .divider{background-color: #bd5e1b;}
+        .navbar-default .navbar-nav .open .dropdown-menu>li>a{color:black;}
+        .navbar-default .navbar-toggle{border-color: #888;}
+        .navbar-default .navbar-toggle .icon-bar{background-color: #888;}
+        #sesion{padding-top: 200px;}
+        .thumbnail{background-color:#FF9933; border-color:#bd5e1b;}
+        footer {
+            position: relative;
+            margin-top: 25px;
+            width:100%;
+            height: 40px;
+            padding:5px 0px;
+            clear: both;
+            background: chocolate;
+            text-align: center;
+            color: #000;
+        }
+        .row{margin-left: 15px; margin-right: 15px;}
+        .fotos img {
+	width: 200px;
+	height: 200px;}
+        .imagen{
+            float: left;
+        }
+        .imagen img{
+            width: 300px;
+            height: 300px;
+        }
+        .datos{
+       
+            padding-left: 90px;
+        }
+        .numero{
+            width: 70px;
+        }
+    	#header {
+                margin:auto;
+                width:500px;
+                font-family:Arial, Helvetica, sans-serif;
+        }
+
+        ul, ol {
+                list-style:none;
+        }
+
+        .nav > li {
+                float:left;
+        }
+
+        .nav li ul {
+                display:none;
+                position:absolute;
+                min-width:140px;
+        }
+
+        .nav li:hover > ul {
+                display:block;
+        }
+
+        .nav li ul li {
+                position:relative;
+        }
+
+        .nav li ul li ul {
+                right:-140px;
+                top:-10px;
+                left:135px;
+        }
+        .usuario{
+            padding-top: 12px;
+        }
+        .centro{
+            align:"center";
+            padding: 50px;
+        }
+        
+        
