@@ -66,5 +66,8 @@ class Producto extends CI_Model{
                     return $data;
             }
 	}
-            
+        function Categorias() {
+            $sql=$this->db->query("SELECT id,nombre from categorias");
+            return $sql->result_array();
+        }
 }

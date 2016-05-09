@@ -10,17 +10,17 @@
 <?php $i = 1; ?>
 
 <?php foreach ($this->cart->contents() as $items): ?>
-	<?php echo form_hidden($i.'[rowid]', $items['rowid']);?>
+	<?=form_hidden($i.'[rowid]', $items['rowid']);?>
 
 	<tr>
-	  <td><?php echo $items['qty']; ?></td>
+	  <td><?=$items['qty']; ?></td>
 	  <td>
-              <a href="Producto?id=<?php echo $items['id']; ?>"><?php echo $items['name']; ?></a>
+              <a href="Producto?id=<?=$items['id']; ?>"><?=$items['name']; ?></a>
 
 	  </td>
-	  <td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
-	  <td style="text-align:right">$<?php echo $this->cart->format_number($items['subtotal']); ?></td>
-          <td><button><a href="Elimina_producto_carrito?id=<?php echo $items['rowid']; ?>">Eliminar</a></button></td>
+	  <td style="text-align:right"><?=$this->cart->format_number($items['price']); ?></td>
+	  <td style="text-align:right">$<?=$this->cart->format_number($items['subtotal']); ?></td>
+          <td><button><a href="Elimina_producto_carrito?id=<?=$items['rowid']; ?>">Eliminar</a></button></td>
 	</tr>
 
 <?php $i++; ?>
@@ -30,7 +30,7 @@
 <tr>
   <td colspan="2"> </td>
   <td class="right"><strong>Total</strong></td>
-  <td class="right">$<?php echo $this->cart->format_number($this->cart->total()); ?></td>
+  <td class="right">$<?=$this->cart->format_number($this->cart->total()); ?></td>
 </tr>
 
 </table>

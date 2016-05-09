@@ -1,6 +1,5 @@
 <div class="container" id="sesion">
-    <?php
-    echo form_open(base_url().$direccion);
+    <?=form_open(base_url().$direccion);
     if(isset($_POST['compra']))
     {
         ?>
@@ -28,5 +27,5 @@
         echo @$error;
         ?>
     </div>
-    <?php echo form_close(); ?>
+    <?=form_close(); ?>
     </div>

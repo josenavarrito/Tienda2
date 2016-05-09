@@ -16,6 +16,9 @@ class Productos extends CI_Controller{
         parent::__construct();
         $this->load->model('Producto');
     }
+    public function Prueba() {
+        $this->load->view('layout');
+    }
 public function index() {
     $this->load->library('pagination');
   
@@ -36,8 +39,8 @@ public function index() {
     $this->load->view('Productos/Index',$productos);
     $this->load->view('Plantilla/Footer');
 }
-public function Categoria() {
-    $id=$_GET['id'];
+public function Categoria($id,$seg=0) {
+    //$id=$_GET['id'];
     $this->load->library('pagination');
   
     $config['base_url'] = base_url().'Productos/index';
@@ -50,11 +53,14 @@ public function Categoria() {
     $config['next_link'] = 'Siguiente';//siguiente link
     $config['prev_link'] = 'Anterior';//anterior link
     $this->pagination->initialize($config); //inicializamos la paginación		
-    $productos["lista"] = $this->Producto->total_paginados_categoria($id,$config['per_page'],$this->uri->segment(3));
+    $productos["lista"] = $this->Producto->total_paginados_categoria($id,$config['per_page'],$seg);
     
-    $this->load->view('Plantilla/Header'); 
-    $this->load->view('Productos/Index',$productos);   
-    $this->load->view('Plantilla/Footer');
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Productos/index',$productos,true))
+    );
+//    $this->load->view('Plantilla/Header'); 
+//    $this->load->view('Productos/Index',$productos);   
+//    $this->load->view('Plantilla/Footer');
 }
 public function Producto() {
    

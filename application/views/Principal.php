@@ -3,7 +3,7 @@
     <table><tr><td>
 <div id="portada">
 
-<image id="barba" src="<?php echo base_url();?>../assets/imagenes/barba.png">
+<image id="barba" src="<?=base_url();?>/assets/imagenes/barba.png">
 </div>
           </td><td>
     <h1>Productos destacados</h1>
@@ -13,7 +13,7 @@
   <div class="col-sm-4 col-md-5">
     <div class="thumbnail">
       <div class="fotos">
-      <img src="<?php echo base_url();?>../assets/imagenes/productos/<?php echo $producto['imagen'];?>"
+      <img src="<?=base_url();?>/assets/imagenes/productos/<?php echo $producto['imagen'];?>"
          alt="grandpa">
       </div>
       <div class="caption">

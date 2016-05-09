@@ -16,8 +16,7 @@
     </div>
 </div>-->
 <div class="container" id="sesion">
-    <?php
-    echo form_open(base_url()."Cliente/Agregacliente");
+    <?=form_open(base_url()."Cliente/Agregacliente");
     ?>
         <div class="col-md-12">
             <div class="col-md-4"></div>
@@ -31,7 +30,7 @@
                     <select name="provincia" class="form-control">
                         <option>Provincia</option>
                     <?php foreach ($provincia as $prov){ ?>
-                        <option value="<?php echo $prov['cod']; ?>"><?php echo $prov['nombre']; ?></option>";
+                        <option value="<?=$prov['cod']; ?>"><?=$prov['nombre']; ?></option>";
                     <?php } ?>
                     </select>
                     <input type="text" class="form-control" placeholder="Nombre de Usuario" name="nombre_usuario">
@@ -48,5 +47,5 @@
         echo @$error;
         ?>
     </div>
-    <?php echo form_close(); ?>
+    <?=form_close(); ?>
     </div>
