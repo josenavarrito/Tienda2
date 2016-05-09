@@ -22,9 +22,9 @@ class Administrador extends CI_Controller{
     
     public function index() {
                 $dato['direccion']="Administrador/Comprobaradministrador";
-                $this->load->view('Plantilla/Header');
-                $this->load->view('Clientes/Index',$dato);
-                $this->load->view('Plantilla/Footer');
+                 $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/index',$dato,true))
+    );
     } 
     public function Comprobaradministrador() {
     $this->form_validation->set_rules('email','email','required');
@@ -33,9 +33,9 @@ class Administrador extends CI_Controller{
     if($this->form_validation->run() == FALSE)
     {
         $dato['direccion']="Administrador/Comprobaradministrador";
-        $this->load->view('Plantilla/Header');
-        $this->load->view('Clientes/Index',$dato);
-        $this->load->view('Plantilla/Footer');
+         $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/index',$dato,true))
+    );
     }
     else
     {
@@ -48,13 +48,13 @@ class Administrador extends CI_Controller{
             $campo->$this->input->post($campo2)
         );
         $this->Clientes->insertar($datos);
-        redirect(base_url());
+        redirect(site_url());
     }
 }
 public function AgregarProducto() {
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Administrador/Agregar');
-    $this->load->view('Plantilla/Footer');
+     $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Administrador/Agregar',0,true))
+    );
 }
 public function Insertarproducto() {
     $this->form_validation->set_rules('nombres','Nombre','required');
@@ -78,9 +78,9 @@ public function Insertarproducto() {
     
     if($this->form_validation->run() == FALSE)
     {
-        $this->load->view('Plantilla/Header');
-        $this->load->view('Administrador/Agregar');
-        $this->load->view('Plantilla/Footer');
+         $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Administrador/Agregar',0,true))
+        );
     }
     else
     {
@@ -124,7 +124,7 @@ public function Insertarproducto() {
         }
         */
         $this->Producto->insertar($datos);
-        redirect(base_url()."Administrador");
+        redirect(sitee_url()."/Administrador");
     }
 }
 

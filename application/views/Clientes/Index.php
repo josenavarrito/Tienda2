@@ -1,3 +1,5 @@
+
+<h1>hola</h1>
 <div class="container" id="sesion">
     <?=form_open(base_url().$direccion);
     if(isset($_POST['compra']))

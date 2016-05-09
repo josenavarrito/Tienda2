@@ -36,9 +36,9 @@ public function index() {
     $productos["lista"] = $this->Producto->total_paginados($config['per_page'],$this->uri->segment(3));			
     //cargamos la vista y el array data
     
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Productos/Index',$productos);
-    $this->load->view('Plantilla/Footer');
+     $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Productos/index',$productos,true))
+    );
 }
 public function Categoria($id,$seg=0) {
     //$id=$_GET['id'];
@@ -68,18 +68,18 @@ public function Producto() {
     $id=$_GET['id'];
     $sql="SELECT * FROM productos WHERE id_productos=$id";
     $productos['hola']=$this->Producto->Buscar($sql);
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Productos/Ver',$productos);
-    $this->load->view('Plantilla/Footer');      
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Productos/Ver',$productos,true))
+    );
 }
 
 public function Buscar() {
     $nombre=$_GET['nombre'];
     $sql="SELECT * FROM productos WHERE nombre LIKE '%$nombre%'";
     $productos['hola']=$this->Producto->Buscar($sql);
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Productos/Buscar',$productos);
-    $this->load->view('Plantilla/Footer');      
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Productos/Buscar',$productos,true))
+    );
 }
 
 public function Anadir_Carrito() {
@@ -106,14 +106,14 @@ public function Anadir_Carrito() {
          );
     }
     $this->cart->insert($data);
-    redirect(base_url()."Productos/Ver_Carrito");
+    redirect(site_url()."/Productos/Ver_Carrito");
 }
 
 public function Ver_Carrito() {
     $datos['carrito']=  $this->cart->contents();
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Productos/Carrito',$datos);
-    $this->load->view('Plantilla/Footer');    
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Productos/Carrito',$datos,true))
+    );
 }
 public function Elimina_producto_carrito() {
     $id=$_GET['id'];
@@ -123,16 +123,16 @@ public function Elimina_producto_carrito() {
         );
     $this->cart->update($data);
     $datos['carrito']=  $this->cart->contents();
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Productos/Carrito',$datos);
-    $this->load->view('Plantilla/Footer');    
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Productos/Carrito',$datos,true))
+    );
 }
 
 public function Destruir_Carrito() {
     $this->cart->destroy();
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Productos/Carrito');
-    $this->load->view('Plantilla/Footer');
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Productos/Carrito',0,true))
+    );
 }
  
 function Comprar() {
@@ -141,9 +141,9 @@ function Comprar() {
           {
               $dato['direccion']="Cliente/Comprobarcliente";
               $dato['compra']=1;
-              $this->load->view('Plantilla/Header');
-              $this->load->view('Clientes/index',$dato);
-              $this->load->view('Plantilla/Footer');
+              $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clietes/index',$dato,true))
+    );
           }
           else
           {

@@ -45,12 +45,12 @@
         <ul class="dropdown-menu">
             <?php $sesion=$this->session->userdata('email');
                     if($sesion=="desconocido"||$sesion==""){ ?>
-          <li><a href="<?=site_url();?>Cliente/">Iniciar Sesion</a></li>
+          <li><a href="<?=site_url();?>/Cliente/">Iniciar Sesion</a></li>
           <li class="divider"></li>
-          <li><a href="<?=site_url();?>Cliente/Agregar">Registrarse</a></li>
+          <li><a href="<?=site_url();?>/Cliente/Agregar">Registrarse</a></li>
             <?php } else{ ?>
-            <li><a href="<?=site_url();?>Cliente/Micuenta">Mi Cuenta</a></li>
-            <li><a href="<?=site_url();?>Cliente/Cerrar">Cerrar sesion</a></li>
+            <li><a href="<?=site_url();?>/Cliente/Micuenta">Mi Cuenta</a></li>
+            <li><a href="<?=site_url();?>/Cliente/Cerrar">Cerrar sesion</a></li>
             <?php } ?>
         </ul>
       </li>
@@ -59,7 +59,7 @@
             <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="<?=site_url();?>Productos/">Todos</a></li>
+          <li><a href="<?=site_url();?>/Productos/">Todos</a></li>
           <li class="divider"></li>
           <li>
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias
@@ -71,7 +71,7 @@
                   $categorias=$this->Producto->Categorias();
                   foreach ($categorias as $cat)
                   {?>
-                  <li><a href="<?=site_url('Productos/Categoria/'.$cat['id']);?>"><?=$cat['nombre'];?></a></li>
+                  <li><a href="<?=site_url('/Productos/Categoria/'.$cat['id']);?>"><?=$cat['nombre'];?></a></li>
                   <?php
                   }
                   ?>
@@ -79,15 +79,15 @@
           </li>
         </ul>
       </li>
-      <li><a href="<?=site_url();?>Principal/Empresa">¿Quienes Somos?</a></li>
+      <li><a href="<?=site_url();?>/Principal/Empresa">¿Quienes Somos?</a></li>
     </ul>
       <form class="navbar-form navbar-left" role="search" method="get" 
-            action="<?=site_url();?>Productos/Buscar">
+            action="<?=site_url();?>/Productos/Buscar">
       <div class="form-group">
         <input type="text" name="nombre" class="form-control" placeholder="Buscar Producto">
       </div>
       <button type="submit" class="btn btn-default">Enviar</button>
-      <a class="btn btn-primary" href="<?=site_url();?>Productos/Ver_Carrito">Ver Carrito</a>
+      <a class="btn btn-primary" href="<?=site_url();?>/Productos/Ver_Carrito">Ver Carrito</a>
     </form>
       <p class="usuario"><?= $sesion; ?></p>
       
@@ -104,6 +104,6 @@
 </center>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?=site_url();?>../assets/js/bootstrap.min.js"></script>
+    <script src="<?=base_url();?>/assets/js/bootstrap.min.js"></script>
   </body>
 </html>

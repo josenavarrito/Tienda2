@@ -16,11 +16,14 @@ class Cliente extends CI_Controller {
         parent::__construct();
         $this->load->model('Clientes');
     } 
+    
     public function index() {
-    $dato['direccion']="Cliente/Comprobarcliente";
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Clientes/Index',$dato);
-    $this->load->view('Plantilla/Footer');
+        $dato['direccion']="Cliente/Comprobarcliente";
+        echo "<p>Inicio</p>";
+        $this->load->view('layout',array(
+            'cuerpo'=>$this->load->view('Clientes/index',$dato,true)
+        ));
+        echo "<p>FIN</p>";
 }
 public function Cerrar() {
     $datos=array(
@@ -31,22 +34,22 @@ public function Cerrar() {
     $this->load->model('Producto');
     $sql="SELECT * From productos where destacados=1 and oculto=1";
     $datos['hola']=  $this->Producto->Buscar($sql);
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Principal',$datos);
-    $this->load->view('Plantilla/Footer');
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Principal',$datos,true))
+    );
 }
 public function Agregar() {
     //$sql="select * from tbl_provincias;";
     //$datos['provincias']=$this->Clientes->leeruno($sql);
     $datos['provincia']=$this->Clientes->provincias();
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Clientes/NuevoCliente',$datos);
-    $this->load->view('Plantilla/Footer');
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Nuevocliente',$datos,true))
+    );
 }
 public function Micuenta() {
-    $this->load->view('Plantilla/Header');
-    $this->load->view('Clientes/Micuenta');
-    $this->load->view('Plantilla/Footer');
+    $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Micuente',0,true))
+    );
 }
 public function Comprobarcliente() {
     $this->form_validation->set_rules('email','email','required|valid_email');
@@ -55,9 +58,9 @@ public function Comprobarcliente() {
     if($this->form_validation->run() == FALSE)
     {
         $dato['direccion']="Cliente/Comprobarcliente";
-        $this->load->view('Plantilla/Header');
-        $this->load->view('Clientes/Index',$dato);
-        $this->load->view('Plantilla/Footer');
+        $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/index',$dato,true))
+    );
     }
     else
     {
@@ -73,9 +76,9 @@ public function Comprobarcliente() {
         {
             $direccion['direccion']="Cliente/Comprobarcliente";
             $direccion['error']="Esta cuenta no existe";
-            $this->load->view('Plantilla/Header');
-            $this->load->view('Clientes/Index',$direccion);
-            $this->load->view('Plantilla/Footer');
+            $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/index',$direccion,true))
+    );
         }
         else
         {
@@ -86,9 +89,9 @@ public function Comprobarcliente() {
             {
                 $direccion['direccion']="Cliente/Comprobarcliente";
                 $direccion['error']="La contraseña es incorrecta";
-                $this->load->view('Plantilla/Header');
-                $this->load->view('Clientes/Index',$direccion);
-                $this->load->view('Plantilla/Footer');
+                $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/index',$direccion,true))
+    );
             }
             else
             {
@@ -125,9 +128,9 @@ public function Agregacliente() {
     {
         //redireccionamos a la vista del formulario otra vez
         $datos['provincia']=$this->Clientes->provincias();
-        $this->load->view('Plantilla/Header');
-        $this->load->view('Clientes/Nuevocliente',$datos);
-        $this->load->view('Plantilla/Footer');
+        $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Nuevocliente',$datos,true))
+    );
     }
     else
     {
@@ -159,15 +162,15 @@ public function Agregacliente() {
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata($datos);
-            redirect(base_url());
+            redirect(site_url());
         }
         else
         {
             $datos['provincia']=$this->Clientes->provincias();
             $datos['error']="Este usuario ya esta registrado<br>Compruebe los datos";
-            $this->load->view('Plantilla/Header');
-            $this->load->view('Clientes/NuevoCliente',$datos);
-            $this->load->view('Plantilla/Footer');
+            $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Nuevocliente',$datos,true))
+    );
          // aqui va el codigo si encuentra un mismo correo electrocino o mismo nombre de usuario
         }
         //redireccionamos al controlador de agregar el usuario
@@ -178,8 +181,8 @@ public function Agregacliente() {
     }
 }
 public function CambiarDatos() {
-        $this->load->view('Plantilla/Header');
-        $this->load->view('Clientes/Cambiardatos');
-        $this->load->view('Plantilla/Footer');
+        $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Cambiardatos',0,true))
+    );
 }
 }

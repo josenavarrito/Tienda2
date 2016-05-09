@@ -45,14 +45,14 @@ class Principal extends CI_Controller {
           $sql="SELECT * From productos where destacados=1 and oculto=1";
           $datos['hola']=  $this->Producto->Buscar($sql);
 		//echo $this->session->userdata('email');
-		$this->load->view('Plantilla/Header');
-                $this->load->view('Principal',$datos);
-                $this->load->view('Plantilla/Footer');
+                $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Principal',$datos,true))
+    );
 	}
         public function Empresa()
 	{
-		$this->load->view('Plantilla/Header');
-                $this->load->view('Somos');
-                $this->load->view('Plantilla/Footer');
+                $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Somos',0,true))
+    );
 	}
 }
