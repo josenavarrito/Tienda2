@@ -21,6 +21,7 @@ class Productos extends CI_Controller{
     }
 public function index() {
     $this->load->library('pagination');
+    
   
     $config['base_url'] = base_url().'Productos/index';
     $config['total_rows'] = $this->Producto->filas();//calcula el número de filas  
