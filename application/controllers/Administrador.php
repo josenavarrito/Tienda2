@@ -17,6 +17,9 @@ class Administrador extends CI_Controller{
         $this->load->model('Producto');
     }
 
+    
+    // Cambio de prueba
+    
     public function index() {
                 $dato['direccion']="Administrador/Comprobaradministrador";
                 $this->load->view('Plantilla/Header');
