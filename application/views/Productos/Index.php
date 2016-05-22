@@ -23,8 +23,8 @@
         <h3><?=$producto->nombre;?></h3>
         <p><?=$producto->precio;?>€</p>
         <p>
-          <a href="Producto?id=<?=$producto->id_productos;?>" class="btn btn-primary" role="button">Ver producto</a>
-          <a href="Anadir_Carrito?id=<?=$producto->id_productos;?>" class="btn btn-primary" role="button">Añadir a la cesta</a>
+            <a href="<?=  site_url();?>/Productos/Producto?id=<?=$producto->id_productos;?>" class="btn btn-primary" role="button">Ver producto</a>
+          <a href="<?=  site_url();?>/Productos/Anadir_Carrito?id=<?=$producto->id_productos;?>" class="btn btn-primary" role="button">Añadir a la cesta</a>
         </p>
       </div>
     </div>

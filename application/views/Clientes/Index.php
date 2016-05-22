@@ -1,7 +1,6 @@
-
-<h1>hola</h1>
 <div class="container" id="sesion">
-    <?=form_open(base_url().$direccion);
+    <h1>Inicio de Sesión</h1>
+    <?=form_open(site_url()."/Cliente/Comprobarcliente");
     if(isset($_POST['compra']))
     {
         ?>
@@ -16,7 +15,7 @@
                 <form class="form-signin" role="form">
                     <div class="text-center">
                     </div>
-                    <input id="txtEmail" type="email" class="form-control" placeholder="Email" name="email">
+                    <input id="txtEmail" type="email" value="<?php if(isset($_POST['email'])){echo $_POST['email'];}else{echo "";}?>" class="form-control" placeholder="Email" name="email">
                     <input type="password" class="form-control" placeholder="Password" name="contrasena">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
                 </form>

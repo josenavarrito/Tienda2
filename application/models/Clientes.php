@@ -21,8 +21,11 @@ class Clientes extends CI_Model {
     }
     public function leeruno($sql) {
         $query=$this->db->query($sql);
-        return $query->result();
+        return $query->result_array();
         
+    }
+    public function Modificar($sql) {
+        $query=$this->db->query($sql);
     }
     public function provincias() {
         $query=$this->db->get('tbl_provincias');

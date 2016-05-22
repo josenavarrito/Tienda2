@@ -14,16 +14,13 @@
 class Productos extends CI_Controller{
     function __construct() {
         parent::__construct();
-        $this->load->model('Producto');
-    }
-    public function Prueba() {
-        $this->load->view('layout');
+        //$this->load->model('Producto');
     }
 public function index() {
     $this->load->library('pagination');
     
   
-    $config['base_url'] = base_url().'Productos/index';
+    $config['base_url'] = site_url().'/Productos/index';
     $config['total_rows'] = $this->Producto->filas();//calcula el número de filas  
     $config['per_page'] = 6; //Número de registros mostrados por páginas
     $config['num_links'] = 20; //Número de links mostrados en la paginación
@@ -64,7 +61,6 @@ public function Categoria($id,$seg=0) {
 //    $this->load->view('Plantilla/Footer');
 }
 public function Producto() {
-   
     $id=$_GET['id'];
     $sql="SELECT * FROM productos WHERE id_productos=$id";
     $productos['hola']=$this->Producto->Buscar($sql);

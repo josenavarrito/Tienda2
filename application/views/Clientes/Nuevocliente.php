@@ -15,11 +15,23 @@
         <input type="submit" class="form-control" value="Enviar" name="correo">
     </div>
 </div>-->
-<div class="container" id="sesion">
-    <?=form_open(base_url()."Cliente/Agregacliente");
+<h1>Formulario de Registro</h1>
+<div class="container">
+    <?=form_open(site_url()."/Cliente/Agregacliente");
     ?>
         <div class="col-md-12">
-            <div class="col-md-4"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <p>Nombre</p>
+                <p>Apellidos</p>
+                <p>DNI</p>
+                <p>Direccion</p>
+                <p>Codigo Postal</p>
+                <p>Provincia</p>
+                <p>Nombre de Usuario</p>
+                <p>Email</p>
+                <p>Contraseña</p>
+            </div>
             <div class="col-md-4" id="login">
                 <form class="form-signin" role="form">
                     <input type="text" class="form-control" placeholder="Nombre" name="nombre">

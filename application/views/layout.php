@@ -49,7 +49,9 @@
           <li class="divider"></li>
           <li><a href="<?=site_url();?>/Cliente/Agregar">Registrarse</a></li>
             <?php } else{ ?>
-            <li><a href="<?=site_url();?>/Cliente/Micuenta">Mi Cuenta</a></li>
+            <li><a href="<?=site_url();?>/Cliente/Micuenta/contrasena">Cambiar contraseña</a></li>
+            <li><a href="<?=site_url();?>/Cliente/Micuenta/datos">Cambiar datos</a></li>
+            <li><a href="<?=site_url();?>/Cliente/Micuenta/pedidos">Ver Mis pedidos</a></li>
             <li><a href="<?=site_url();?>/Cliente/Cerrar">Cerrar sesion</a></li>
             <?php } ?>
         </ul>
@@ -67,9 +69,8 @@
               </a>
               <ul class="dropdown-menu">
                   <?php 
-                  $this->load->model('Producto');
-                  $categorias=$this->Producto->Categorias();
-                  foreach ($categorias as $cat)
+                  $categoria=$this->Producto->Categorias();
+                  foreach ($categoria as $cat)
                   {?>
                   <li><a href="<?=site_url('/Productos/Categoria/'.$cat['id']);?>"><?=$cat['nombre'];?></a></li>
                   <?php

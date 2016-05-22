@@ -17,13 +17,10 @@ class Cliente extends CI_Controller {
         $this->load->model('Clientes');
     } 
     
-    public function index() {
-        $dato['direccion']="Cliente/Comprobarcliente";
-        echo "<p>Inicio</p>";
+public function index() {
+        $dato['direccion']="/Cliente/Comprobarcliente";
         $this->load->view('layout',array(
-            'cuerpo'=>$this->load->view('Clientes/index',$dato,true)
-        ));
-        echo "<p>FIN</p>";
+            'cuerpo'=>$this->load->view('Clientes/index',$dato,true)));
 }
 public function Cerrar() {
     $datos=array(
@@ -46,10 +43,132 @@ public function Agregar() {
         'cuerpo'=>$this->load->view('Clientes/Nuevocliente',$datos,true))
     );
 }
-public function Micuenta() {
-    $this->load->view('layout',array(
-        'cuerpo'=>$this->load->view('Clientes/Micuente',0,true))
+public function Micuenta($id) {
+    if($id=="pedidos")
+    {
+        $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Micuenta',0,true))
     );
+    }
+   else if($id=="datos")
+    {
+        $email=$_SESSION['email'];
+        $sql="select * from usuarios where correo_electronico='$email'";
+        $datos['dato']=$this->Clientes->leeruno($sql);
+        $datos['provincia']=$this->Clientes->provincias();
+        $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Cambiardatos',$datos,true))
+    );
+    }
+    else if($id=="contrasena")
+    {
+        $email=$_SESSION['email'];
+        $sql="select * from usuarios where correo_electronico='$email'";
+        $datos['dato']=$this->Clientes->leeruno($sql);
+        $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Cambiarcontrasena',$datos,true))
+        );
+    }
+     else if($id=="guardacontrasena")
+    {
+        $this->form_validation->set_rules('contrasenaactual','Contraseña Actual','required');
+        $this->form_validation->set_rules('nuevacontrasena','Nueva Contraseña','required');
+         if($this->form_validation->run() == FALSE)
+        {
+            $email=$_SESSION['email'];
+            $sql="select * from usuarios where correo_electronico='$email'";
+            $datos['dato']=$this->Clientes->leeruno($sql);
+            $this->load->view('layout',array(
+            'cuerpo'=>$this->load->view('Clientes/Cambiarcontrasena',$datos,true))
+            );
+            
+        }
+        else
+        {
+            $email=$_SESSION['email'];
+            $contraseña=$_POST['contrasenaactual'];            
+            $sql="select * from usuarios where correo_electronico='$email' and contraseña='$contraseña'";
+            $cliente=$this->Clientes->leeruno($sql);
+            if(empty($cliente))
+            {
+                $sql="select * from usuarios where correo_electronico='$email'";
+                $datos['dato']=$this->Clientes->leeruno($sql);
+                $datos['error']="Contraseña Actual Incorrecta";
+                $this->load->view('layout',array(
+                'cuerpo'=>$this->load->view('Clientes/Cambiarcontrasena',$datos,true))
+                );
+            }
+            else{
+                $nuevacontraseña=$_POST['nuevacontrasena'];
+                $sql="update usuarios set contraseña='$nuevacontraseña' where correo_electronico='$email'";
+                $cliente=$this->Clientes->Modificar($sql);
+                $this->load->view('layout',array(
+                'cuerpo'=>$this->load->view('Clientes/Cambios',0,true))
+                );
+            }
+        }
+    }
+     else if($id=="guardacambios")
+    {   $this->form_validation->set_rules('nombreusuario','Nombre de usuario','required');
+        $this->form_validation->set_rules('nombre','Nombre','required');
+        $this->form_validation->set_rules('apellido','Apellido','required');
+        $this->form_validation->set_rules('dni','DNI','required|exact_length[9]|regex_match[/^[0-9]{8}[A-Z]$/]');
+        $this->form_validation->set_rules('direccion','Direccion','required');
+        $this->form_validation->set_rules('cp','Codigo Postal','required');
+        $this->form_validation->set_rules('email','Email','required');
+        $this->form_validation->set_rules('provincia','Provincia','required');
+       if($this->form_validation->run() == FALSE)
+        {
+            $email=$_SESSION['email'];
+            $sql="select * from usuarios where correo_electronico='$email'";
+            $datos['dato']=$this->Clientes->leeruno($sql);
+            $datos['provincia']=$this->Clientes->provincias();
+            $this->load->view('layout',array(
+            'cuerpo'=>$this->load->view('Clientes/Cambiardatos',$datos,true))
+            );
+        }
+        else
+        {
+            $usuario=$_SESSION['email'];
+            $nombre=$_POST['nombre'];
+            $apellido=$_POST['apellido'];
+            $dni=$_POST['dni'];
+            $direccion=$_POST['direccion'];
+            $cp=$_POST['cp'];
+            $email=$_POST['email'];
+            $provincia=$_POST['provincia'];
+            $nombreusuario=$_POST['nombreusuario'];
+            if($provincia=='Provincia')
+            {    
+                $email=$_SESSION['email'];
+                $sql="select * from usuarios where correo_electronico='$email'";
+                $datos['dato']=$this->Clientes->leeruno($sql);
+                $datos['provincia']=$this->Clientes->provincias();
+                $datos['error']="Elige una Provincia";
+                $this->load->view('layout',array(
+                'cuerpo'=>$this->load->view('Clientes/Cambiardatos',$datos,true))
+                );
+            }
+            else{
+            $sql="update usuarios set nombre='$nombre', apellidos='$apellido',"
+                    . "dni='$dni', direccion='$direccion', cp='$cp',"
+                    . "correo_electronico='$email', provincia='$provincia',"
+                    . "nombreusuario='$nombreusuario' where correo_electronico='$usuario'";
+                $cliente=$this->Clientes->Modificar($sql);
+                $datos=array(
+                    'email'=>$email,
+                    'logged_in' => TRUE
+                );
+                $this->session->set_userdata($datos);
+                $this->load->view('layout',array(
+                'cuerpo'=>$this->load->view('Clientes/Cambios',0,true))
+                );
+        };
+        }
+    }
+    else{
+    redirect(site_url());
+    }
 }
 public function Comprobarcliente() {
     $this->form_validation->set_rules('email','email','required|valid_email');
@@ -57,7 +176,7 @@ public function Comprobarcliente() {
     
     if($this->form_validation->run() == FALSE)
     {
-        $dato['direccion']="Cliente/Comprobarcliente";
+        $dato['direccion']="/Cliente/Comprobarcliente";
         $this->load->view('layout',array(
         'cuerpo'=>$this->load->view('Clientes/index',$dato,true))
     );
@@ -74,7 +193,7 @@ public function Comprobarcliente() {
         $cliente=$this->Clientes->leeruno($sql);
         if(empty($cliente))
         {
-            $direccion['direccion']="Cliente/Comprobarcliente";
+            $direccion['direccion']="/Cliente/Comprobarcliente";
             $direccion['error']="Esta cuenta no existe";
             $this->load->view('layout',array(
         'cuerpo'=>$this->load->view('Clientes/index',$direccion,true))
@@ -87,7 +206,7 @@ public function Comprobarcliente() {
             $cliente=$this->Clientes->leeruno($sql);
             if(empty($cliente))
             {
-                $direccion['direccion']="Cliente/Comprobarcliente";
+                $direccion['direccion']="/Cliente/Comprobarcliente";
                 $direccion['error']="La contraseña es incorrecta";
                 $this->load->view('layout',array(
         'cuerpo'=>$this->load->view('Clientes/index',$direccion,true))
@@ -100,7 +219,6 @@ public function Comprobarcliente() {
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata($datos);
-                echo $_POST['compra'];
                 if(isset($_POST['comprar']))
                 {
                     echo"la compra se ha realizado con exito";
@@ -108,7 +226,7 @@ public function Comprobarcliente() {
                 else{
                     
                 }
-                //redirect(base_url());
+                redirect(base_url());
             }
         }
     }
@@ -134,6 +252,15 @@ public function Agregacliente() {
     }
     else
     {
+        $provincia=$_POST['provincia'];
+        if($provincia=='Provincia')
+        {
+            $datos['provincia']=$this->Clientes->provincias();
+            $datos['error']="Elige una Provincia";
+            $this->load->view('layout',array(
+            'cuerpo'=>$this->load->view('Clientes/Nuevocliente',$datos,true)));
+        }
+        else{
         $email=$_POST['email'];
         $username=$_POST['nombre_usuario'];
         $dni=$_POST['dni'];
@@ -178,11 +305,6 @@ public function Agregacliente() {
         
         //$this->Clientes->insertar($datos);
         //redirect(base_url());
-    }
-}
-public function CambiarDatos() {
-        $this->load->view('layout',array(
-        'cuerpo'=>$this->load->view('Clientes/Cambiardatos',0,true))
-    );
+}}
 }
 }
