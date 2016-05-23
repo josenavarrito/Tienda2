@@ -219,14 +219,14 @@ public function Comprobarcliente() {
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata($datos);
-                if(isset($_POST['comprar']))
+                if(isset($_POST['compra']))
                 {
-                    echo"la compra se ha realizado con exito";
+                    
+                    redirect(site_url("/Productos/Comprar"));
                 }
                 else{
-                    
+                    redirect(site_url());
                 }
-                redirect(base_url());
             }
         }
     }

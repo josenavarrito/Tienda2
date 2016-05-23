@@ -34,7 +34,7 @@
 </tr>
 
 </table>
-
-<p><a class="btn btn-primary" role="button" href="#">Comprar</a>
+<?= @$error;?>
+<p><a class="btn btn-primary" role="button" href="Comprar">Comprar</a>
 <a class="btn btn-primary" role="button" href="Destruir_Carrito">Borrar</a>
 </p>

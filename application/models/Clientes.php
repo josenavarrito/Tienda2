@@ -31,4 +31,12 @@ class Clientes extends CI_Model {
         $query=$this->db->get('tbl_provincias');
         return $query->result_array();
     }
+    public function Comprar($pedido) {
+        $this->db->insert('pedidos',$pedido);
+        $id=$this->db->insert_id();
+        return $id;      
+    }
+    public function Comprar2($productos) {
+        $this->db->insert('lineapedidos',$productos);
+    }
 }

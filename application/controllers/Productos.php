@@ -138,13 +138,45 @@ function Comprar() {
               $dato['direccion']="Cliente/Comprobarcliente";
               $dato['compra']=1;
               $this->load->view('layout',array(
-        'cuerpo'=>$this->load->view('Clietes/index',$dato,true))
+        'cuerpo'=>$this->load->view('Clientes/index',$dato,true))
     );
           }
           else
           {
-              echo "la compra se ha realizado con exito";
+              $numero_productos=  $this->cart->total_items();
+              if($numero_productos>0)
+              {
+              $this->load->model('Clientes');
+              $usuario=$_SESSION['email'];
+              $sql="select * from usuarios where correo_electronico='$usuario'";
+              $datos=$this->Clientes->leeruno($sql);
+              $fecha=date("Y-m-d");
+              foreach ($datos as $dato){
+                  $datosusuario=array('direccion'=>$dato['direccion'],'fecha'=>$fecha,
+                      'estado'=>'aceptado','usuarios_id'=>$dato['id'],'cp'=>$dato['cp'],'provincia'=>$dato['provincia']);
+              }
+              //$id_pedido=$this->Clientes->Comprar($datosusuario);
+              if(!isset($descuento))
+              {
+                  $descuento=NULL;
+              }
+              foreach ($this->cart->contents() as $items){
+                  $id=$items['id'];
+                  $cantidad=$items['qty'];
+                  $precio=$items['price'];    
+                  $producto=array('id_productos'=>$id,'pedidos_id'=>$id_pedido,
+                      'precio'=>$precio,'descuento'=>$descuento,'cantidad'=>$cantidad);
+                  //$this->Clientes->Comprar2($producto);
+              }
+              //$this->cart->destroy();
+              }
+              else
+              {
+                  $dato['error']="<h3>No tienes ningun articulo en la cesta</h3>";
+                  $this->load->view('layout',array(
+                'cuerpo'=>$this->load->view('Productos/Carrito',$dato,true)));
+              }
           }
-    $datos['carrito']=  $this->cart->contents();
+    $datos['carrito']=  $this->cart->contents();   
 }
 }

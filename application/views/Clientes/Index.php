@@ -1,7 +1,7 @@
 <div class="container" id="sesion">
     <h1>Inicio de Sesión</h1>
     <?=form_open(site_url()."/Cliente/Comprobarcliente");
-    if(isset($_POST['compra']))
+    if(isset($compra))
     {
         ?>
     <input type="hidden" name="compra" value="1">
