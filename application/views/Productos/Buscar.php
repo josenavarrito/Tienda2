@@ -18,8 +18,8 @@
         <p><?=$producto['precio'];?>€</p>
         <p>
             <input type="hidden" name="id" value="<?=$producto['id_productos'];?>">
-          <a href="Producto?id=<?=$producto['id_productos'];?>" class="btn btn-primary" role="button">Ver producto</a>
-          <input type="submit" class="btn btn-primary" value="Añadir a la Cesta">
+            <a href="<?=site_url();?>/Productos/Producto?id=<?=$producto['id_productos'];?>" class="btn btn-primary" role="button">Ver producto</a>
+          <a href="<?=site_url();?>/Productos/Anadir_Carrito?id=<?=$producto['id_productos'];?>" class="btn btn-primary" role="button">Añadir a la cesta</a>
         </p>
       </div>
     </div>

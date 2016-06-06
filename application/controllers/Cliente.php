@@ -25,6 +25,7 @@ public function index() {
 public function Cerrar() {
     $datos=array(
                     'email'=>'desconocido',
+                    'id'=>NULL,
                     'logged_in' => FALSE
                 );
     $this->session->set_userdata($datos);
@@ -46,8 +47,11 @@ public function Agregar() {
 public function Micuenta($id) {
     if($id=="pedidos")
     {
+        $id=$_SESSION['id'];
+        $sql="select * from pedidos where usuarios_id='$id'";
+        $datos['pedidos']=$this->Clientes->leeruno($sql);
         $this->load->view('layout',array(
-        'cuerpo'=>$this->load->view('Clientes/Micuenta',0,true))
+        'cuerpo'=>$this->load->view('Clientes/Micuenta',$datos,true))
     );
     }
    else if($id=="datos")
@@ -202,7 +206,7 @@ public function Comprobarcliente() {
         else
         {
             $contrasena=$_POST['contrasena'];
-            $sql="select * from usuarios where correo_electronico='$email' and contraseña='$contrasena'";
+            $sql="select id from usuarios where correo_electronico='$email' and contraseña='$contrasena'";
             $cliente=$this->Clientes->leeruno($sql);
             if(empty($cliente))
             {
@@ -214,8 +218,13 @@ public function Comprobarcliente() {
             }
             else
             {
+                foreach ($cliente as $dato)
+                {
+                    $id=$dato['id'];
+                }
                 $datos=array(
                     'email'=>$email,
+                    'id'=>$id,
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata($datos);
@@ -232,8 +241,8 @@ public function Comprobarcliente() {
     }
 }
 public function Agregacliente() {
-    $this->form_validation->set_rules('nombre','Nombre','required|alpha');
-    $this->form_validation->set_rules('apellido','Apellidos','required|alpha');
+    $this->form_validation->set_rules('nombre','Nombre','required');
+    $this->form_validation->set_rules('apellido','Apellidos','required');
     $this->form_validation->set_rules('email','Email','required|valid_email');
     $this->form_validation->set_rules('contrasena','Contraseña','required');
     $this->form_validation->set_rules('dni','DNI','required|exact_length[9]|regex_match[/^[0-9]{8}[A-Z]$/]');
@@ -280,12 +289,14 @@ public function Agregacliente() {
                     'provincia'=>$this->input->post('provincia')
                 );
             $this->Clientes->insertar($datos);
+            $id=$this->db->insert_id();
             //$direccion['direccion']="Cliente/Comprobarcliente";
             //$this->load->view('Plantilla/Header');
             //$this->load->view('/Index',$direccion);
             //$this->load->view('Plantilla/Footer');
             $datos=array(
                     'email'=>$email,
+                    'id'=>$id,
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata($datos);
@@ -307,4 +318,42 @@ public function Agregacliente() {
         //redirect(base_url());
 }}
 }
+public function Verpedidos($id) {
+    $sql="select p.imagen imagen, p.nombre nombre, l.cantidad cantidad, l.precio precio,"
+            . "l.id_productos id "
+            . "from lineapedidos l join productos p on l.id_productos=p.id_productos where pedidos_id='$id'";
+    $datos['pedidos']=$this->Clientes->leeruno($sql);
+    $pedido=$this->Clientes->leeruno($sql);
+//    foreach ($pedido as $valores) {
+//        $id_productos=$valores['pruductos_id_productos']."<br>";
+//        $sql="select * from productos where id_productos='$id_productos'";
+//        $datos['productos']=$this->Clientes->leeruno($sql);
+//    }
+   $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Pedido',$datos,true)));
 }
+public function Eliminarpedido($id) {
+     $sql="Select estado from pedidos where id='$id'";
+     $datos=$this->Clientes->leeruno($sql);
+     foreach ($datos as $dato) {
+         $estado=$dato['estado'];
+     }
+     if($estado=='pendiente')
+     {
+        $sql="DELETE FROM lineapedidos WHERE pedidos_id='$id'";
+        $this->Clientes->Modificar($sql);
+        $sql="DELETE FROM pedidos WHERE id='$id'";
+        $this->Clientes->Modificar($sql);   
+        $datos['error']="el pedido $id ha sido anulado";
+     }
+     else{
+        $datos['error']="el pedido $id no se puede Anular";
+     }
+        $id=$_SESSION['id'];
+        $sql="select * from pedidos where usuarios_id='$id'";
+        $datos['pedidos']=$this->Clientes->leeruno($sql);
+        $this->load->view('layout',array(
+        'cuerpo'=>$this->load->view('Clientes/Micuenta',$datos,true)));
+}
+}
+

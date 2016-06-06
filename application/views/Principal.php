@@ -20,8 +20,8 @@
         <h3><?php echo $producto['nombre'];?></h3>
         <p><?php echo $producto['precio'];?>€</p>
         <p>
-          <a href="Productos/Producto?id=<?php echo $producto['id_productos'];?>" class="btn btn-primary" role="button">Ver producto</a>
-          <a href="Productos/Anadir_Carrito?id=<?php echo $producto['id_productos'];?>" class="btn btn-primary" role="button">Añadir a la cesta</a>
+            <a href="<?=site_url();?>/Productos/Producto?id=<?php echo $producto['id_productos'];?>" class="btn btn-primary" role="button">Ver producto</a>
+          <a href="<?=site_url();?>/Productos/Anadir_Carrito?id=<?php echo $producto['id_productos'];?>" class="btn btn-primary" role="button">Añadir a la cesta</a>
         </p>
       </div>
     </div>

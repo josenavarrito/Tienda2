@@ -9,6 +9,19 @@
             width: 600px;
             height: 450px;
         }
+        .pedido{
+            margin-top: 60px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .pedido img{
+            width: 25px;
+        }
+        .tr-pedido{
+            font-size: 30px;
+            background-color: chocolate;
+            
+                   }
         .navbar-default .navbar-nav>li>a{color:black;}
         .menu{background-color: chocolate;}
         .navbar-default .navbar-nav>.open>a, .navbar-default 
@@ -43,6 +56,10 @@
         .imagen img{
             width: 300px;
             height: 300px;
+        }
+        .producto img{
+            width: 80px;
+            margin: 10px;
         }
         .datos{
        
