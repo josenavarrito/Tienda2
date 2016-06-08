@@ -17,11 +17,10 @@ foreach ($pedidos as $pedido) {
     echo "<td>".$pedido['estado']."</td>";
     ?>
     <td><a href="<?=site_url();?>/Cliente/Verpedidos/<?=$pedido['id'];?>">Ver</a></td>
-    <td><a href="#"><image src="<?=base_url();?>/assets/imagenes/pdf.png"></a></td>
+    <td><a href="<?=site_url();?>/Pdf/index/<?=$pedido['id'];?>"><image src="<?=base_url();?>/assets/imagenes/pdf.png"></a></td>
     <td><a href="<?=site_url();?>/Cliente/Eliminarpedido/<?=$pedido['id'];?>"><image src="<?=base_url();?>/assets/imagenes/eliminar.png"></a></td>
     <?php
     echo"</tr>";
-    echo $count;
 }
 if($count==0) $error="No Tienes Pedidos";
 ?>
